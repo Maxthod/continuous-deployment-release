@@ -3,15 +3,12 @@
 import com.duvalhub.release.parameters.Parameters
 import com.duvalhub.gitclone.GitCloneRequest
 
-String[] versions = ['patch', 'minor', 'major']
-String[] flows = ['release', 'production']
-
 dockerSlave {
     properties([
         parameters([
             string(defaultValue: 'git@github.com:duvalhub/continuous-deployment-test-app.git', name: 'GIT_REPOSITORY'),
-            choice(defaultValue: 'release', choices: flows, name: 'FLOW_TYPE'),
-            choice(defaultValue: 'patch', choices: versions, name: 'VERSION')
+            choice(defaultValue: 'release', choices: ['release', 'production'], name: 'FLOW_TYPE'),
+            choice(defaultValue: 'patch', choices: 'patch', 'minor', 'major'], name: 'VERSION')
         ])
     ])
 
