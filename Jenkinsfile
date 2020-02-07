@@ -9,8 +9,8 @@ String[] flows = ['release', 'production']
 dockerSlave {
     properties([
         parameters([
-            string(defaultValue: 'duvalhub/continuous-deployment-test-app', name: 'GIT_REPOSITORY'),
-            string(defaultValue: 'release', choices: flows, name: 'FLOW_TYPE'),
+            string(defaultValue: 'git@github.com:duvalhub/continuous-deployment-test-app.git', name: 'GIT_REPOSITORY'),
+            choice(defaultValue: 'release', choices: flows, name: 'FLOW_TYPE'),
             choice(defaultValue: 'patch', choices: versions, name: 'VERSION')
         ])
     ])
