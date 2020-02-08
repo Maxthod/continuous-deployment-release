@@ -16,7 +16,7 @@ dockerSlave {
     checkout scm
     env.BASE_DIR = pwd()
 
-    Parameters parameters = new Parameters(env.GIT_REPOSITORY, FlowType.fromString(env.FLOW_TYPE), Version.fromString(env.VERSION))
+    Parameters parameters = new Parameters(env.GIT_REPOSITORY, env.FLOW_TYPE, env.VERSION)
 
     GitCloneRequest gitCloneRequest = new GitCloneRequest(env.GIT_REPOSITORY)
     gitCloneRequest.toCheckout = "develop"

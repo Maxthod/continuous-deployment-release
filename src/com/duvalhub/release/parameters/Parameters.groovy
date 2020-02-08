@@ -3,17 +3,17 @@ package com.duvalhub.release.parameters
 class Parameters {
 
     String git_repository
-    FlowType flow_type
-    Version version
+    String flow_type
+    String version
 
-    Parameters(String git_repository, FlowType flow_type, Version version) {
+    Parameters(String git_repository, String flow_type, String version) {
         this.git_repository = git_repository
         this.flow_type = flow_type
         this.version = version
     }
 }
 
-public enum FlowType {
+public static enum FlowType {
     RELEASE, PRODUCTION
     FlowType(){}
         public static FlowType fromString(String text) {
@@ -26,7 +26,7 @@ public enum FlowType {
     }
 }
 
-enum Version {
+static enum Version {
     PATCH,
     MINOR,
     MAJOR
