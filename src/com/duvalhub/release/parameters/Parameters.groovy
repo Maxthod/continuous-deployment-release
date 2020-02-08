@@ -13,7 +13,7 @@ class Parameters {
     }
 }
 
-enum FlowType {
+static enum FlowType {
     RELEASE, PRODUCTION
     FlowType(){}
         public static FlowType fromString(String text) {
@@ -26,7 +26,7 @@ enum FlowType {
     }
 }
 
-enum Version {
+static enum Version {
     PATCH,
     MINOR,
     MAJOR
