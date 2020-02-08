@@ -24,6 +24,7 @@ node {
     gitCloneRequest.toCheckout = "develop"
     gitClone(gitCloneRequest)
 
-    performGitActions()
+    PerformGitActions performGitActions = new PerformGitActions(parameters, gitCloneRequest)
+    performGitActions(performGitActions)
 
 }

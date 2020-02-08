@@ -1,7 +1,8 @@
+import com.duvalhub.release.performgitactions.PerformGitActions
 
-def call() {
-
-    String script = "${env.WORKSPACE}/scripts/gitaction/gitaction.sh"
-    executeScript(script)
-
+def call(PerformGitActions performGitActions) {
+    dir( performGitActions.app_workdir ) {
+        String script = "${env.WORKSPACE}/scripts/gitaction/gitaction.sh"
+        executeScript(script)        
+    }
 }
