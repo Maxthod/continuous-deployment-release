@@ -20,7 +20,7 @@ node {
 
     Parameters parameters = new Parameters(env.GIT_REPOSITORY, env.FLOW_TYPE, env.VERSION)
 
-    GitCloneRequest gitCloneRequest = new GitCloneRequest(env.GIT_REPOSITORY)
+    GitCloneRequest gitCloneRequest = new GitCloneRequest(parameters.git_repository)
     gitCloneRequest.toCheckout = "develop"
     gitClone(gitCloneRequest)
 
