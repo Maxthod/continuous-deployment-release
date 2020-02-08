@@ -8,7 +8,7 @@ class Parameters {
 
     Parameters(String git_repository, String flow_type, String version) {
         this.git_repository = git_repository
-        this.flow_type = FlowType.fromtString(flow_type)
+        this.flow_type = FlowType.fromString(flow_type)
         this.version = Version.fromString(version)
     }
 }
