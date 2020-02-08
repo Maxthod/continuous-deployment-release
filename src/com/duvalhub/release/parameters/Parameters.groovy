@@ -6,10 +6,10 @@ class Parameters {
     FlowType flow_type
     Version version
 
-    Parameters(String git_repository, String flow_type, String version) {
+    Parameters(String git_repository, FlowType flow_type, Version version) {
         this.git_repository = git_repository
-        this.flow_type = FlowType.fromString(flow_type)
-        this.version = Version.fromString(version)
+        this.flow_type = flow_type
+        this.version = version
     }
 }
 
