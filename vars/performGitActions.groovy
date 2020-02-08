@@ -1,6 +1,7 @@
 
 def call() {
 
-    String script = "${env.BASE_DIR}/scripts/wait/wait.sh"
+    String script = "${env.PIPELINE_WORKDIR}/scripts/wait/wait.sh"
+    executeScript(script)
 
 }

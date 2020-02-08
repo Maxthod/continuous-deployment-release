@@ -3,8 +3,8 @@
 import com.duvalhub.release.parameters.Parameters
 import com.duvalhub.gitclone.GitCloneRequest
 
-dockerSlave {
-//node {
+//dockerSlave {
+node {
     properties([
         parameters([
             string(defaultValue: 'git@github.com:duvalhub/continuous-deployment-test-app.git', name: 'GIT_REPOSITORY'),
@@ -14,11 +14,9 @@ dockerSlave {
     ])
 
     checkout scm
-    env.BASE_DIR = pwd()
-    
-    echo "$WORKSPACE vs $BASE_DIR"
-    sh "ls -l $WORKSPACE"
-    initializeSharedLibrary
+    env.BASE_DIR = env.WORKSPACE
+
+    initializeSharedLibrary()
 
     Parameters parameters = new Parameters(env.GIT_REPOSITORY, env.FLOW_TYPE, env.VERSION)
 
@@ -27,7 +25,5 @@ dockerSlave {
     gitClone(gitCloneRequest)
 
     performGitActions()
-
-
 
 }
