@@ -15,10 +15,12 @@ class Parameters {
 
 enum FlowType {
     RELEASE, PRODUCTION
+    FlowType(){}
 }
 
 enum Version {
     PATCH,
     MINOR,
     MAJOR
+    Version() {}
 }
