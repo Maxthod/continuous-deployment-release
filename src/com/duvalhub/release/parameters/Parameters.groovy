@@ -13,7 +13,7 @@ class Parameters {
     }
 }
 
-enum FlowType {
+public enum FlowType {
     RELEASE, PRODUCTION
     FlowType(){}
         public static FlowType fromString(String text) {
