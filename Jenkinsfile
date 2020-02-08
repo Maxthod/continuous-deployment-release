@@ -3,8 +3,8 @@
 import com.duvalhub.release.parameters.Parameters
 import com.duvalhub.gitclone.GitCloneRequest
 
-//dockerSlave {
-node {
+dockerSlave {
+//node {
     properties([
         parameters([
             string(defaultValue: 'git@github.com:duvalhub/continuous-deployment-test-app.git', name: 'GIT_REPOSITORY'),
