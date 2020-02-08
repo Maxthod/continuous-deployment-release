@@ -1,7 +1,7 @@
 @Library(['release-library@feature/first-draft', 'shared-library@feature/multiple-env']) _
 
 import com.duvalhub.release.parameters.Parameters
-import static com.duvalhub.release.parameters.FlowType
+import com.duvalhub.release.parameters.FlowType
 import com.duvalhub.gitclone.GitCloneRequest
 
 dockerSlave {
