@@ -2,6 +2,7 @@
 env.PIPELINE_BRANCH = "feature/multiple-env"
 import com.duvalhub.release.parameters.Parameters
 import com.duvalhub.gitclone.GitCloneRequest
+import com.duvalhub.release.performgitactions.PerformGitActions
 
 //dockerSlave {
 node {
