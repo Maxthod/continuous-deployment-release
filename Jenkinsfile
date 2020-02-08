@@ -15,6 +15,10 @@ node {
 
     checkout scm
     env.BASE_DIR = pwd()
+    
+    echo "$WORKSPACE vs $BASE_DIR"
+    sh "ls -l $WORKSPACE"
+    initializeSharedLibrary
 
     Parameters parameters = new Parameters(env.GIT_REPOSITORY, env.FLOW_TYPE, env.VERSION)
 
