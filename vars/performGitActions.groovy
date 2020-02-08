@@ -1,7 +1,7 @@
 
 def call() {
 
-    String script = "${env.PIPELINE_WORKDIR}/scripts/wait/wait.sh"
+    String script = "${env.WORKSPACE}/scripts/gitaction/gitaction.sh"
     executeScript(script)
 
 }
