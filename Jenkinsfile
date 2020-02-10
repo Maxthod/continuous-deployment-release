@@ -11,7 +11,7 @@ node {
             string(defaultValue: 'git@github.com:duvalhub/continuous-deployment-test-app.git', name: 'GIT_REPOSITORY'),
             choice(choices: ['release', 'production'], name: 'FLOW_TYPE'),
             choice(choices: ['patch', 'minor', 'major'], name: 'VERSION'),
-            string(defaultValue: false, name: 'DRY_RUN')
+            string(defaultValue: 'false', name: 'DRY_RUN')
         ])
     ])
 
