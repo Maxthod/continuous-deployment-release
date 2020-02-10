@@ -1,7 +1,7 @@
 package com.duvalhub.release.performgitactions
 
 import com.duvalhub.release.parameters.Parameters
-import com.duvalhub.gitclone.GitCloneRequest
+import com.duvalhub.git.GitCloneRequest
 
 class PerformGitActions {
 
