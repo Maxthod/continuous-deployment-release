@@ -2,6 +2,7 @@
 env.PIPELINE_BRANCH = "feature/multiple-env"
 import com.duvalhub.release.parameters.Parameters
 import com.duvalhub.git.GitCloneRequest
+import com.duvalhub.git.GitRepo
 import com.duvalhub.release.performgitactions.PerformGitActions
 
 //dockerSlave {
@@ -23,8 +24,11 @@ node {
 
         Parameters parameters = new Parameters(env.GIT_REPOSITORY, env.FLOW_TYPE, env.VERSION)
 
-        GitCloneRequest gitCloneRequest = new GitCloneRequest(parameters.git_repository)
-        gitCloneRequest.toCheckout = "develop"
+        String[] repo_parts = params.GIT_REPOSITORY.split('/')
+        String org = repo_parts[-2]
+        String repo = repo_parts[-1]
+        GitRepo gitRepo = new GitRepo(org, repo, "develop")
+        GitCloneRequest gitCloneRequest = new GitCloneRequest(gitRepo)
         gitClone(gitCloneRequest)
 
         performGitActions(new PerformGitActions(parameters, gitCloneRequest))
