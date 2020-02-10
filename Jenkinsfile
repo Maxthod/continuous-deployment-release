@@ -9,7 +9,7 @@ import com.duvalhub.release.performgitactions.PerformGitActions
 node {
     properties([
         parameters([
-            string(defaultValue: 'git@github.com:duvalhub/continuous-deployment-test-app.git', name: 'GIT_REPOSITORY'),
+            string(defaultValue: 'duvalhub/continuous-deployment-test-app', name: 'GIT_REPOSITORY'),
             choice(choices: ['release', 'production'], name: 'FLOW_TYPE'),
             choice(choices: ['patch', 'minor', 'major'], name: 'VERSION'),
             string(defaultValue: 'false', name: 'DRY_RUN')
@@ -25,8 +25,8 @@ node {
         Parameters parameters = new Parameters(env.GIT_REPOSITORY, env.FLOW_TYPE, env.VERSION)
 
         String[] repo_parts = params.GIT_REPOSITORY.split('/')
-        String org = repo_parts[-2]
-        String repo = repo_parts[-1]
+        String org = repo_parts[0]
+        String repo = repo_parts[1]
         GitRepo gitRepo = new GitRepo(org, repo, "develop")
         GitCloneRequest gitCloneRequest = new GitCloneRequest(gitRepo)
         gitClone(gitCloneRequest)
