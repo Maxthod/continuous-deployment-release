@@ -15,7 +15,7 @@ node {
         ])
     ])
 
-    if ( params.DRY_RUN != 'false' ) {
+    if ( params.DRY_RUN == 'false' ) {
         checkout scm
         env.BASE_DIR = env.WORKSPACE
 
