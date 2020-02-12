@@ -6,7 +6,7 @@ def call(PerformGitActions performGitActions) {
         withSshKey() {
             env.VERSION = performGitActions.getVersion()
             String version_script = "${env.WORKSPACE}/scripts/version-controls/${performGitActions.getVersionControl()}.sh"
-            String new_version = executeScript(script_path: git_action_script, stdout: true)
+            String new_version = executeScript(script_path: version_script, stdout: true)
 
             env.NEW_VERSION = new_version
             String git_action_script = "${env.WORKSPACE}/scripts/gitaction/gitaction.sh"
