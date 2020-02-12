@@ -25,4 +25,8 @@ class PerformGitActions extends BaseObject {
         return this.parameters.version
     }
 
+    String getFlowType() {
+        return this.parameters.flow_type
+    }
+
 }
