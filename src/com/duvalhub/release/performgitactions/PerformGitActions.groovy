@@ -4,6 +4,7 @@ import com.duvalhub.BaseObject
 import com.duvalhub.appconfig.AppConfig
 import com.duvalhub.release.parameters.Parameters
 import com.duvalhub.git.GitCloneRequest
+import com.duvalhub.initializeworkdir.InitializeWorkdirIn
 
 class PerformGitActions extends BaseObject {
     Parameters parameters
