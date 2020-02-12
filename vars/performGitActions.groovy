@@ -5,7 +5,7 @@ def call(PerformGitActions performGitActions) {
     dir( performGitActions.app_workdir ) {
         withSshKey() {
             String flow_type = performGitActions.getFlowType()
-            switch(flow_type {
+            switch(flow_type) {
                 case "release":
                     env.VERSION = performGitActions.getVersion()
                     String version_script = "${env.WORKSPACE}/scripts/version-controls/${performGitActions.getVersionControl()}.sh"
