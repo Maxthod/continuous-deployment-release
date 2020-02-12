@@ -4,6 +4,8 @@ import com.duvalhub.release.parameters.Parameters
 import com.duvalhub.git.GitCloneRequest
 import com.duvalhub.git.GitRepo
 import com.duvalhub.release.performgitactions.PerformGitActions
+import com.duvalhub.initializeworkdir.InitializeWorkdirIn
+import com.duvalhub.appconfig.AppConfig
 
 //dockerSlave {
 node {
@@ -17,21 +19,22 @@ node {
     ])
 
     if ( params.DRY_RUN == 'false' ) {
+        Parameters parameters = new Parameters(params.GIT_REPOSITORY, params.FLOW_TYPE, params.VERSION)
+
         checkout scm
         env.BASE_DIR = env.WORKSPACE
 
-        initializeSharedLibrary()
-
-        Parameters parameters = new Parameters(env.GIT_REPOSITORY, env.FLOW_TYPE, env.VERSION)
-
-        String[] repo_parts = params.GIT_REPOSITORY.split('/')
+        String[] repo_parts = parameters.git_repository.split('/')
         String org = repo_parts[0]
         String repo = repo_parts[1]
-        GitRepo gitRepo = new GitRepo(org, repo, "develop")
-        GitCloneRequest gitCloneRequest = new GitCloneRequest(gitRepo)
-        gitClone(gitCloneRequest)
+        GitRepo appGitRepo = new GitRepo(org, repo, "develop")
 
-        performGitActions(new PerformGitActions(parameters, gitCloneRequest))
+        InitializeWorkdirIn initWorkDirIn = new InitializeWorkdirIn(appGitRepo)
+        initializeWorkdir.stage(initWorkDirIn)
+
+        AppConfig appConfig = readConfiguration()
+
+        performGitActions(new PerformGitActions(parameters, initWorkDirIn, appConfig))
     } else {
         echo "Dry run detected! Aborting pipeline."
     }
