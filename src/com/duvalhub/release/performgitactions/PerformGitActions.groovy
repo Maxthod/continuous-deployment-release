@@ -18,7 +18,7 @@ class PerformGitActions extends BaseObject {
     }
 
     String getVersionControl() {
-        return this.app_config.version_control
+        return this.app_config.app.version_control
     }
 
     String getVersion() {
