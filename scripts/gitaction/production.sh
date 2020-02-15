@@ -37,6 +37,7 @@ git checkout develop
 if try_merge; then
     echo "########## Merging successful"
     git commit -am "End of Release: '$release_branch'"
+    git push origin develop
 else
     echo "########### Merge conflict"
     git merge --abort
