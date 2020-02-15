@@ -12,9 +12,9 @@ version=$(echo "$RELEASE_BRANCH" | cut -d'/' -f2)
 # Prepare release branch
 git checkout "$RELEASE_BRANCH"
 
-local fork_commit_with_develop=$(git merge-base --fork-point develop)
-local last_merge_commit=$(git log --pretty=format:"%h" --merges -n 1)
-local current_release_feature_commits=$(git log --pretty=format:"%s" $last_merge_commit..$fork_commit_with_develop)
+fork_commit_with_develop=$(git merge-base --fork-point develop)
+last_merge_commit=$(git log --pretty=format:"%h" --merges -n 1)
+current_release_feature_commits=$(git log --pretty=format:"%s" $last_merge_commit..$fork_commit_with_develop)
  git reset --soft $fork_commit_with_develop
 git commit -m "$release_branch :
 $current_release_feature_commits
