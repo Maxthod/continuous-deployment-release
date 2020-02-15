@@ -1,6 +1,12 @@
 #!/bin/bash
 set -e
+try_merge() {
+    git merge --no-ff --no-commit master
+}
 
+create_pull_request() {
+    curl -u "$USERNAME:$PASSWORD" -X POST -d '{"title":"End of Release: '$1'","head":"master","base":"develop"}' https://api.github.com/repos/duvalhub/continuous-deployment-test-app/pulls
+}
 if [ -z "$RELEASE_BRANCH" ]; then
     echo "Missing 'RELEASE_BRANCH' environment variable. Fatal error"
     exit 1
@@ -41,11 +47,3 @@ create_pull_request "$release_branch"
 #    create_pull_request "$release_branch"
 #fi
 
-try_merge() {
-    git merge --no-ff --no-commit master
-}
-
-create_pull_request() {
-
-    curl -u "$USERNAME:$PASSWORD" -X POST -d '{"title":"End of Release: '$1'","head":"master","base":"develop"}' https://api.github.com/repos/duvalhub/continuous-deployment-test-app/pulls
-}
