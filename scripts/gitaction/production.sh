@@ -34,16 +34,12 @@ git push origin --delete "$RELEASE_BRANCH"
 
 # Merge back into develop if no conflict
 git checkout develop
-echo "########### Merge conflict"
-create_pull_request "$release_branch"
-
-
-#if try_merge; then
-#    echo "########## Merging successful"
-#    git commit -am "End of Release: '$release_branch'"
-#else
-#    echo "########### Merge conflict"
-#    git merge --abort
-#    create_pull_request "$release_branch"
-#fi
+if try_merge; then
+    echo "########## Merging successful"
+    git commit -am "End of Release: '$release_branch'"
+else
+    echo "########### Merge conflict"
+    git merge --abort
+    create_pull_request "$release_branch"
+fi
 
