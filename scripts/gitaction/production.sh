@@ -24,6 +24,8 @@ else
         echo "Releasing from release branch '$RELEASE_BRANCH'"
     
         # Prepare release branch
+        git checkout master
+        git checkout develop
         git checkout "$RELEASE_BRANCH"
 
         fork_commit_with_develop=$(git merge-base --fork-point develop)
