@@ -28,9 +28,12 @@ else
         git checkout develop
         git checkout "$RELEASE_BRANCH"
 
+        git merge-base --fork-point develop
         fork_commit_with_develop=$(git merge-base --fork-point develop)
+        git log --pretty=format:"%h" --merges -n 1
         last_merge_commit=$(git log --pretty=format:"%h" --merges -n 1)
-        current_release_feature_commits=$(git log --pretty=format:"%s" $last_merge_commit..$fork_commit_with_develop)
+        git log --pretty=format:"%s" "$last_merge_commit..$fork_commit_with_develop"
+        current_release_feature_commits=$(git log --pretty=format:"%s" "$last_merge_commit..$fork_commit_with_develop")
 
         echo "fork_commit_with_develop: '$fork_commit_with_develop', last_merge_commit: '$last_merge_commit', current_release_feature_commits: '$current_release_feature_commits'"
 
