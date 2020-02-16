@@ -9,7 +9,7 @@ try_merge() {
 }
 
 create_pull_request() {
-    curl -u "$USERNAME:$PASSWORD" -X POST -d "{\"title\":\"$PULL_REQUEST_TITLE\",\"head\":\"master\",\"base\":\"develop\"}" https://api.github.com/repos/duvalhub/continuous-deployment-test-app/pulls
+    curl -u "$USERNAME:$PASSWORD" -X POST -d "{\"title\":\"$PULL_REQUEST_TITLE\",\"head\":\"$1\",\"base\":\"$2\"}" https://api.github.com/repos/duvalhub/continuous-deployment-test-app/pulls
 }
 
 missing_params=false
@@ -68,7 +68,11 @@ else
         else
             echo "########### Merge conflict"
             git merge --abort
-            create_pull_request "$release_branch"
+            conflict_branch="conflicts/$release_branch"
+            git checkout develop
+            git checkout -b "$conflict_branch"
+            git push origin "$conflict_branch"
+            create_pull_request "$conflict_branch" "develop"
         fi
     fi
 fi
