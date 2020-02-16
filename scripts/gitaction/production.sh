@@ -12,8 +12,21 @@ create_pull_request() {
     curl -u "$USERNAME:$PASSWORD" -X POST -d "{\"title\":\"$PULL_REQUEST_TITLE\",\"head\":\"master\",\"base\":\"develop\"}" https://api.github.com/repos/duvalhub/continuous-deployment-test-app/pulls
 }
 
-if [ -z "$RELEASE_BRANCH" ]; then
-    echo "Missing 'RELEASE_BRANCH' environment variable. Fatal error"
+missing_params=false
+
+test_param() {
+    if [ -z "$1" ]; then
+        echo "Missing '$2' environment variable. Fatal error"
+        missing_params=true
+    fi
+}
+test_param "$RELEASE_BRANCH" "RELEASE_BRANCH"
+test_param "$REGISTRY_API" "REGISTRY_API"
+test_param "$NAMESPACE" "NAMESPACE"
+test_param "$REPOSITORY" "REPOSITORY"
+
+if [ "$missing_params" = true ]; then
+    echo "Missing parameters detected. Aborting..."
     exit 1
 else
     version=$(echo "$RELEASE_BRANCH" | cut -d'/' -f2)
@@ -28,14 +41,11 @@ else
         git checkout develop
         git checkout "$RELEASE_BRANCH"
 
-        echo "Hello ?"
-        git merge-base --fork-point develop
-        fork_commit_with_develop=$(git merge-base --fork-point develop)
-        git log --pretty=format:"%h" --merges -n 1
-        last_merge_commit=$(git log --pretty=format:"%h" --merges -n 1)
-        git log --pretty=format:"%s" "$last_merge_commit..$fork_commit_with_develop"
-        current_release_feature_commits=$(git log --pretty=format:"%s" "$last_merge_commit..$fork_commit_with_develop")
+        git log --graph --decorate --pretty=oneline --abbrev-commit --all
 
+        fork_commit_with_develop=$(git merge-base $RELEASE_BRANCH develop)
+        last_merge_commit=$(git log --pretty=format:"%h" --merges -n 1)
+        current_release_feature_commits=$(git log --pretty=format:"%s" "$last_merge_commit..$fork_commit_with_develop")
         echo "fork_commit_with_develop: '$fork_commit_with_develop', last_merge_commit: '$last_merge_commit', current_release_feature_commits: '$current_release_feature_commits'"
 
         git reset --soft "$fork_commit_with_develop"

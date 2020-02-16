@@ -1,5 +1,11 @@
 #!/bin/bash
 
+make_commit() {
+    echo "asd" >> allo
+    git commit -am "conflict"
+    git push origin develop
+}
+
 script_under_test="$(pwd)/production.sh"
 
 # Arrange
@@ -15,7 +21,6 @@ git remote add origin "$git_repo_bare"
 touch allo
 git add allo
 git commit -am "dont care"
-git branch
 git push origin master
 git checkout -b develop
 git push origin develop
@@ -23,7 +28,11 @@ git checkout -b "$RELEASE_BRANCH"
 echo "bobo" >> allo
 git commit -am "allo"
 git push origin "$RELEASE_BRANCH"
+
 git checkout develop
+
+make_commit
+
 git clone "$git_repo_bare" "$git_repo2" -b develop
 cd "$git_repo2"
 # Act
