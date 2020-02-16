@@ -30,8 +30,17 @@ class PerformGitActions extends BaseObject {
     }
 
     String getGitUri() {
-
         return this.parameters.git_repository
+    }
+
+    String getRegistryApi() {
+        return this.app_config.docker.registry_api
+    }
+    String getNamespace() {
+        return this.app_config.docker.namespace
+    }
+    String getRepository() {
+        return this.app_config.docker.repository
     }
 
 }
