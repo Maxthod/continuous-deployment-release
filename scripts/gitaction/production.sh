@@ -5,7 +5,7 @@ docker_tag_exists() {
 }
 
 try_merge() {
-    git merge --no-ff --no-commit master
+    git merge --no-ff --no-commit "$1"
 }
 
 create_pull_request() {
@@ -29,8 +29,11 @@ else
         fork_commit_with_develop=$(git merge-base --fork-point develop)
         last_merge_commit=$(git log --pretty=format:"%h" --merges -n 1)
         current_release_feature_commits=$(git log --pretty=format:"%s" $last_merge_commit..$fork_commit_with_develop)
-        git reset --soft $fork_commit_with_develop
-        git commit -m "$release_branch :
+
+        echo "fork_commit_with_develop: '$fork_commit_with_develop', last_merge_commit: '$last_merge_commit', current_release_feature_commits: '$current_release_feature_commits'"
+
+        git reset --soft "$fork_commit_with_develop"
+        git commit -am "$release_branch :
         $current_release_feature_commits
         "
         # Merge release branch into master
@@ -42,7 +45,7 @@ else
 
         # Merge back into develop if no conflict
         git checkout develop
-        if try_merge; then
+        if try_merge "master"; then
             echo "########## Merging successful"
             git commit -am "End of Release: '$release_branch'"
             git push origin develop
