@@ -28,6 +28,7 @@ else
         git checkout develop
         git checkout "$RELEASE_BRANCH"
 
+        echo "Hello ?"
         git merge-base --fork-point develop
         fork_commit_with_develop=$(git merge-base --fork-point develop)
         git log --pretty=format:"%h" --merges -n 1
