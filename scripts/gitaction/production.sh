@@ -16,14 +16,13 @@ if [ -z "$RELEASE_BRANCH" ]; then
     echo "Missing 'RELEASE_BRANCH' environment variable. Fatal error"
     exit 1
 else
-    echo "Releasing from release branch '$RELEASE_BRANCH'"
     version=$(echo "$RELEASE_BRANCH" | cut -d'/' -f2)
     if ! docker_tag_exists "$REGISTRY_API" "$NAMESPACE/$REPOSITORY" "$version"; then
         echo "Image '$NAMESPACE/$REPOSITORY:$version' does not exist. Release in production impossible. Aborting..."
         exit 1
     else
-        exit 0
-
+        echo "Releasing from release branch '$RELEASE_BRANCH'"
+    
         # Prepare release branch
         git checkout "$RELEASE_BRANCH"
 
