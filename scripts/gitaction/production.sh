@@ -49,7 +49,7 @@ else
         echo "fork_commit_with_develop: '$fork_commit_with_develop', last_merge_commit: '$last_merge_commit', current_release_feature_commits: '$current_release_feature_commits'"
 
         git reset --soft "$fork_commit_with_develop"
-        git commit -am "$release_branch :
+        git commit -am "$RELEASE_BRANCH :
         $current_release_feature_commits
         "
         # Merge release branch into master
@@ -63,12 +63,12 @@ else
         git checkout develop
         if try_merge "master"; then
             echo "########## Merging successful"
-            git commit -am "End of Release: '$release_branch'"
+            git commit -am "End of Release: '$RELEASE_BRANCH'"
             git push origin develop
         else
             echo "########### Merge conflict"
             git merge --abort
-            conflict_branch="conflicts/$release_branch"
+            conflict_branch="conflicts/$RELEASE_BRANCH"
             git checkout develop
             git checkout -b "$conflict_branch"
             git push origin "$conflict_branch"
