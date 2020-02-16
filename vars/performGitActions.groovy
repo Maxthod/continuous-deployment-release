@@ -7,6 +7,7 @@ def call(PerformGitActions performGitActions) {
             withCredentials([
                 usernamePassword(credentialsId: 'GITHUB_SERVICE_ACCOUNT_CREDENTIALS', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')
             ]) {
+                env.PULL_REQUEST_TITLE = "Automatic Pull Request from CI."
                 String flow_type = performGitActions.getFlowType()
                 switch(flow_type) {
                     case "release":

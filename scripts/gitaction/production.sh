@@ -5,7 +5,7 @@ try_merge() {
 }
 
 create_pull_request() {
-    curl -u "$USERNAME:$PASSWORD" -X POST -d '{"title":"End of Release: '$1'","head":"master","base":"develop"}' https://api.github.com/repos/duvalhub/continuous-deployment-test-app/pulls
+    curl -u "$USERNAME:$PASSWORD" -X POST -d "{\"title\":\"$PULL_REQUEST_TITLE\",\"head\":\"master\",\"base\":\"develop\"}" https://api.github.com/repos/duvalhub/continuous-deployment-test-app/pulls
 }
 if [ -z "$RELEASE_BRANCH" ]; then
     echo "Missing 'RELEASE_BRANCH' environment variable. Fatal error"

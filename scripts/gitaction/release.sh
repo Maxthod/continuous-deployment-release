@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 release_branch=$(git branch -a | grep release | wc -l)
-pull_request=$(curl -s "https://api.github.com/repos/$GIT_URI/pulls" | grep asdasd | wc -l)
+pull_request=$(curl -s "https://api.github.com/repos/$GIT_URI/pulls" | grep "$PULL_REQUEST_TITLE" | wc -l)
 if (( $release_branch > 0 )); then
     echo "Release branch detected! There is already a release branch. Finish or removed current release and retry"
     exit 1
