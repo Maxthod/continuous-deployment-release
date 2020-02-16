@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-release_branch=$(git branch -a | grep release | wc -l)
+release_branch=$(git branch -a | grep '^  remotes/origin/release' | wc -l)
 pull_request=$(curl -s "https://api.github.com/repos/$GIT_URI/pulls" | grep "$PULL_REQUEST_TITLE" | wc -l)
 if (( $pull_request > 0 )); then
     echo "Pull Request Exists! There is a pull request from master to develop. Clear this pull request before launching a new release."
