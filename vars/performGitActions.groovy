@@ -10,6 +10,7 @@ def call(PerformGitActions performGitActions) {
                 String flow_type = performGitActions.getFlowType()
                 switch(flow_type) {
                     case "release":
+                        env.GIT_URI = performGitActions.getGitUri()
                         env.VERSION = performGitActions.getVersion()
                         String version_script = "${env.WORKSPACE}/scripts/version-controls/${performGitActions.getVersionControl()}.sh"
                         String new_version = executeScript(version_script, true)

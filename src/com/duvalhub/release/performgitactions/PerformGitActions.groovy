@@ -29,4 +29,9 @@ class PerformGitActions extends BaseObject {
         return this.parameters.flow_type
     }
 
+    String getGitUri() {
+
+        return this.parameters.git_repository
+    }
+
 }
