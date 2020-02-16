@@ -20,6 +20,7 @@ else
     version=$(echo "$RELEASE_BRANCH" | cut -d'/' -f2)
     if ! docker_tag_exists "$REGISTRY_API" "$NAMESPACE/$REPOSITORY" "$version"; then
         echo "Image does not exist. Release in production impossible. Aborting..."
+        exit 1
     else
         exit 0
 

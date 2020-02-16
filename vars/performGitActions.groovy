@@ -20,7 +20,7 @@ def call(PerformGitActions performGitActions) {
                     case "production":
                         env.REGISTRY_API = performGitActions.getRegistryApi()
                         env.NAMESPACE = performGitActions.getNamespace()
-                        env.REPOSITORY  performGitActions.getRepository()
+                        env.REPOSITORY = performGitActions.getRepository()
                         String release_branch_script = "${env.PIPELINE_WORKDIR}/scripts/bash/getReleaseBranch/getReleaseBranch.sh"
                         String release_branch = executeScript(release_branch_script, true)
                         env.RELEASE_BRANCH = release_branch
