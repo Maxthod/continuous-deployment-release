@@ -69,7 +69,7 @@ else
             echo "########### Merge conflict"
             git merge --abort
             conflict_branch="conflicts/$RELEASE_BRANCH"
-            git checkout develop
+            git checkout master
             git checkout -b "$conflict_branch"
             git push origin "$conflict_branch"
             create_pull_request "$conflict_branch" "develop"
