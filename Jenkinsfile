@@ -1,5 +1,6 @@
-@Library(['release-library@feature/first-draft', 'shared-library@feature/multiple-env']) _
-env.PIPELINE_BRANCH = "feature/multiple-env"
+@Library(['release-library@master', 'shared-library@master']) _
+env.PIPELINE_BRANCH = "master"
+
 import com.duvalhub.release.parameters.Parameters
 import com.duvalhub.git.GitCloneRequest
 import com.duvalhub.git.GitRepo
