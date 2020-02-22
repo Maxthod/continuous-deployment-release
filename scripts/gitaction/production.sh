@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 docker_tag_exists() {
-    curl --silent -f -lSL "$1"/repositories/$2/tags/$3 > /dev/null
+    curl --silent -u "$DOCKERHUB_USERNAME:$DOCKERHUB_PASSWORD" -f -lSL "$1"/repositories/$2/tags/$3 > /dev/null
 }
 
 try_merge() {
