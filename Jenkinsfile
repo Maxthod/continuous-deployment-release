@@ -1,4 +1,4 @@
-@Library(['release-library@fix/401-tag-exists', 'shared-library@master']) _
+@Library(['release-library@fix/master', 'shared-library@master']) _
 env.PIPELINE_BRANCH = "master"
 
 import com.duvalhub.release.parameters.Parameters
