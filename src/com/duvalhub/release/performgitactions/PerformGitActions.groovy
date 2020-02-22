@@ -42,5 +42,7 @@ class PerformGitActions extends BaseObject {
     String getRepository() {
         return this.app_config.docker.repository
     }
-
+    String getDockerhubCredentials(){
+        return this.app_config.docker.credentialId
+    }
 }
