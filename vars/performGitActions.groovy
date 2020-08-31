@@ -1,4 +1,5 @@
 import com.duvalhub.release.performgitactions.PerformGitActions
+import com.duvalhub.initializeworkdir.SharedLibrary
 
 def call(PerformGitActions performGitActions) {
     echo "Executing 'performGitActions.groovy' with PerformGitActions: '${performGitActions.toString()}'"
