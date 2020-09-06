@@ -34,7 +34,7 @@ class PerformGitActions extends BaseObject {
     }
 
     String getRegistryApi() {
-        return String.format("https://%s", this.app_config.docker.registry_api)
+        return String.format("https://%s", this.app_config.docker.registryApi)
     }
     String getNamespace() {
         return this.app_config.docker.namespace
