@@ -1,4 +1,4 @@
-@Library(['release-library@fix/production-flow-breaks', 'shared-library@fix/production-flow-breaks']) _
+@Library(['release-library@master', 'shared-library@master']) _
 
 import com.duvalhub.release.parameters.Parameters
 import com.duvalhub.git.GitCloneRequest
