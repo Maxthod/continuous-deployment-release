@@ -1,5 +1,4 @@
-@Library(['release-library@master', 'shared-library@master']) _
-env.PIPELINE_BRANCH = "master"
+@Library(['release-library@fix/production-flow-breaks', 'shared-library@fix/production-flow-breaks']) _
 
 import com.duvalhub.release.parameters.Parameters
 import com.duvalhub.git.GitCloneRequest
@@ -9,7 +8,6 @@ import com.duvalhub.initializeworkdir.InitializeWorkdirIn
 import com.duvalhub.appconfig.AppConfig
 
 dockerSlave {
-//node {
     properties([
         parameters([
             string(defaultValue: 'duvalhub/continuous-deployment-test-app', name: 'GIT_REPOSITORY'),
