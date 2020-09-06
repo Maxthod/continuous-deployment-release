@@ -3,22 +3,17 @@ package com.duvalhub.release.performgitactions
 import com.duvalhub.BaseObject
 import com.duvalhub.appconfig.AppConfig
 import com.duvalhub.release.parameters.Parameters
-import com.duvalhub.git.GitCloneRequest
 import com.duvalhub.initializeworkdir.InitializeWorkdirIn
+import com.duvalhub.appconfig.AppConfigAccessor
 
-class PerformGitActions extends BaseObject {
+class PerformGitActions extends AppConfigAccessor {
     Parameters parameters
     String app_workdir
-    AppConfig app_config
 
     PerformGitActions(Parameters parameters, InitializeWorkdirIn initWorkDirIn, AppConfig appConfig) {
+        super(appConfig)
         this.parameters = parameters
         this.app_workdir = initWorkDirIn.appWorkdir
-        this.app_config = appConfig
-    }
-
-    String getVersionControl() {
-        return this.app_config.app.version_control
     }
 
     String getVersion() {
@@ -33,8 +28,14 @@ class PerformGitActions extends BaseObject {
         return this.parameters.git_repository
     }
 
+/*
+
+    String getVersionControl() {
+        return this.app_config.app.version_control
+    }
+
     String getRegistryApi() {
-        return String.format("https://%s", this.app_config.docker.registryApi)
+        return this.app_config.docker.registryApi
     }
     String getNamespace() {
         return this.app_config.docker.namespace
@@ -45,4 +46,5 @@ class PerformGitActions extends BaseObject {
     String getDockerhubCredentials(){
         return this.app_config.docker.credentialId
     }
+ */
 }
