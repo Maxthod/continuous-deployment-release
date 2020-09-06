@@ -15,15 +15,17 @@ create_pull_request() {
 missing_params=false
 
 test_param() {
-    if [ -z "$1" ]; then
-        echo "Missing '$2' environment variable. Fatal error"
+    if [ -z "${!1}" ]; then
+        echo "Missing '$1' environment variable. Fatal error"
         missing_params=true
+    else
+      echo "'$1=${!1}'"
     fi
 }
-test_param "$RELEASE_BRANCH" "RELEASE_BRANCH"
-test_param "$REGISTRY_API" "REGISTRY_API"
-test_param "$NAMESPACE" "NAMESPACE"
-test_param "$REPOSITORY" "REPOSITORY"
+test_param "RELEASE_BRANCH"
+test_param "REGISTRY_API"
+test_param "NAMESPACE"
+test_param "REPOSITORY"
 
 if [ "$missing_params" = true ]; then
     echo "Missing parameters detected. Aborting..."
