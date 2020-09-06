@@ -40,7 +40,7 @@ else
     
         # Prepare release branch
         git checkout master
-        git checkout developùù
+        git checkout develop
         git checkout "$RELEASE_BRANCH"
 
         fork_commit_with_develop=$(git merge-base "$RELEASE_BRANCH" develop)
