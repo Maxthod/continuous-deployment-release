@@ -28,23 +28,4 @@ class PerformGitActions extends AppConfigAccessor {
         return this.parameters.git_repository
     }
 
-/*
-
-    String getVersionControl() {
-        return this.app_config.app.version_control
-    }
-
-    String getRegistryApi() {
-        return this.app_config.docker.registryApi
-    }
-    String getNamespace() {
-        return this.app_config.docker.namespace
-    }
-    String getRepository() {
-        return this.app_config.docker.repository
-    }
-    String getDockerhubCredentials(){
-        return this.app_config.docker.credentialId
-    }
- */
 }
