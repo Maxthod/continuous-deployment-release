@@ -17,9 +17,8 @@ dockerSlave {
         ])
     ])
 
-    if ( params.DRY_RUN == 'false' ) {
-        Parameters parameters = new Parameters(params.GIT_REPOSITORY, params.FLOW_TYPE, params.VERSION)
-
+    Parameters parameters = new Parameters(params)
+    if ( !parameters.isDryRun() ) {
         checkout scm
         env.BASE_DIR = env.WORKSPACE
 

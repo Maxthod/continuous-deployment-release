@@ -5,11 +5,17 @@ class Parameters {
     String git_repository
     String flow_type
     String version
+    Boolean dry_run
 
-    Parameters(String git_repository, String flow_type, String version) {
-        this.git_repository = git_repository
-        this.flow_type = flow_type
-        this.version = version
+    Parameters(var params) {
+        this.git_repository = params.GIT_REPOSITORY
+        this.flow_type = params.FLOW_TYPE
+        this.version = params.VERSION
+        this.dry_run = params.DRY_RUN
+    }
+
+    Boolean isDryRun() {
+        return this.git_repository == '' || this.flow_type == '' || this.version == '' || dry_run
     }
 }
 
