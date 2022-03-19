@@ -19,6 +19,8 @@ dockerSlave {
 
     Parameters parameters = new Parameters(params)
     if ( !parameters.isDryRun() ) {
+        echo "Dry run detected! Aborting pipeline."
+    } else {
         checkout scm
         env.BASE_DIR = env.WORKSPACE
 
@@ -30,8 +32,6 @@ dockerSlave {
         AppConfig conf = initializeWorkdir.stage(new InitializeWorkdirIn(appGitRepo))
 
         performGitActions(new PerformGitActions(parameters, initWorkDirIn, appConfig))
-    } else {
-        echo "Dry run detected! Aborting pipeline."
     }
 
 }
