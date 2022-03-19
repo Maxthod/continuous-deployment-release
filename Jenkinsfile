@@ -28,10 +28,7 @@ dockerSlave {
         String repo = repo_parts[1]
         GitRepo appGitRepo = new GitRepo(org, repo, "main")
 
-        InitializeWorkdirIn initWorkDirIn = new InitializeWorkdirIn(appGitRepo)
-        initializeWorkdir.stage(initWorkDirIn)
-
-        AppConfig appConfig = readConfiguration()
+        AppConfig conf = initializeWorkdir.stage(new InitializeWorkdirIn(appGitRepo))
 
         performGitActions(new PerformGitActions(parameters, initWorkDirIn, appConfig))
     } else {
