@@ -23,6 +23,14 @@ dockerSlave {
     } else {
         checkout scm
 
+        docker.withDockerServer([uri: "tcp://build.docker.duvalhub.com:2376", credentialsId: "DOCKER_BUILD_BUNDLE"]) {
+            echo "we are here"
+                docker.image('node:16-alpine')
+                .inside() { c ->
+                    sh "npm -v"
+                }
+        }
+
         docker.image('node:16-alpine')
         .withDockerServer([uri: "tcp://build.docker.duvalhub.com:2376", credentialsId: "DOCKER_BUILD_BUNDLE"])
         .inside() { c ->
