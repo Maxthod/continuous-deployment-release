@@ -12,9 +12,9 @@ node {
     properties([
         parameters([
             string(defaultValue: 'duvalhub/continuous-deployment-test-app', name: 'GIT_REPOSITORY'),
-            choice(choices: ['release', 'production'], name: 'FLOW_TYPE'),
-            choice(choices: ['patch', 'minor', 'major'], name: 'VERSION'),
-            string(defaultValue: 'false', name: 'DRY_RUN')
+            choice(choices: ['none', 'release', 'production'], name: 'FLOW_TYPE'),
+            choice(choices: ['none','patch', 'minor', 'major'], name: 'VERSION'),
+            boolean(defaultValue: false, name: 'DRY_RUN')
         ])
     ])
 

@@ -21,7 +21,7 @@ class Parameters {
     }
 
     Boolean isDryRun() {
-        return this.git_repository == '' || this.flow_type == '' || this.version == '' || dry_run == 'true'
+        return this.git_repository == '' || this.flow_type == 'none' || this.version == 'none' || dry_run == 'true'
     }
 
     String toString() {
