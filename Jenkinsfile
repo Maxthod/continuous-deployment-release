@@ -18,17 +18,9 @@ node {
         ])
     ])
 
-//     Parameters parameters = new Parameters(params.GIT_REPOSITORY, params.FLOW_TYPE, params.VERSION, params.DRY_RUN)
     Parameters parameters = new Parameters(params)
-    if ( true || parameters.isDryRun() ) {
+    if ( parameters.isDryRun() ) {
         echo "Dry run detected! Aborting pipeline."
-        echo parameters.toString()
-        if(parameters.isDryRun()) {
-            echo "ouch"
-        } else {
-            echo "ouille"
-        }
-        echo "" + parameters.isDryRun()
     } else {
         checkout scm
         env.BASE_DIR = env.WORKSPACE
