@@ -30,9 +30,10 @@ dockerSlave {
 //                 }
 //         }
 
-        withDockerServer([uri: "tcp://build.docker.duvalhub.com:2376", credentialsId: "DOCKER_BUILD_BUNDLE"]) {
+        docker.withServer([uri: "tcp://build.docker.duvalhub.com:2376", credentialsId: "DOCKER_BUILD_BUNDLE"]) {
             echo "we are here"
                 docker.image('node:16-alpine')
+                .withRun('--entrypoint sh')
                 .inside() { c ->
                     sh "npm -v"
                 }
