@@ -36,7 +36,10 @@ dockerSlave {
             docker.image('node:16-alpine')
                 .withRun('--entrypoint sh') { c ->
 //                 .inside() { c ->
-                    sh "npm -v"
+                    sh "whoami"
+                    sh "env"
+                    sh "ls -l /usr/local/bin/npm"
+                    sh "/usr/local/bin/npm -v"
                 }
         }
 
