@@ -1,4 +1,4 @@
-@Library(['release-library@master', 'shared-library@master']) _
+@Library(['release-library@fix/pipeline-is-a-bit-outdated', 'shared-library@master']) _
 
 import com.duvalhub.release.parameters.Parameters
 import com.duvalhub.git.GitCloneRequest
@@ -18,7 +18,7 @@ dockerSlave {
     ])
 
     Parameters parameters = new Parameters(params.GIT_REPOSITORY, params.FLOW_TYPE, params.VERSION, params.DRY_RUN)
-    if ( !parameters.isDryRun() ) {
+    if ( parameters.isDryRun() ) {
         echo "Dry run detected! Aborting pipeline."
     } else {
         checkout scm
