@@ -4,7 +4,7 @@ import com.duvalhub.initializeworkdir.SharedLibrary
 def call(PerformGitActions performGitActions) {
     echo "Executing 'performGitActions.groovy' with PerformGitActions: '${performGitActions.toString()}'"
     dir( performGitActions.app_workdir ) {
-        withSshKey() {
+        withSshKey("github.com", "SERVICE_ACCOUNT_SSH", "git") {
             withCredentials([
                 usernamePassword(credentialsId: 'GITHUB_SERVICE_ACCOUNT_CREDENTIALS', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
                 usernamePassword(credentialsId: performGitActions.getCredentialId(), usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')
