@@ -23,4 +23,8 @@ class Parameters {
     Boolean isDryRun() {
         return this.git_repository == '' || this.flow_type == '' || this.version == '' || dry_run == 'true'
     }
+
+    String toString() {
+        return String.format("Parameters(git_repository=%s, flow_type=%s, version=%s, dry_run=%s)", git_repository, flow_type, version, dry_run)
+    }
 }
