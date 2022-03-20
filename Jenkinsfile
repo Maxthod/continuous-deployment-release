@@ -41,7 +41,7 @@ dockerSlave {
             echo "we are here"
             docker.image('node:16-alpine')
 //                 .inside('--entrypoint "sleep 100000"') { c ->
-                .inside() { c ->
+                .inside('-u 1000:1000') { c ->
 //                 .inside() { c ->
 //                     echo c
 //                     sh "whoami"
