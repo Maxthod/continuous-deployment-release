@@ -13,7 +13,7 @@ class Parameters {
         this.dry_run = dry_run
     }
 
-    Parameters(var params) {
+    Parameters(Map params) {
         this.git_repository = params.GIT_REPOSITORY
         this.flow_type = params.FLOW_TYPE
         this.version = params.VERSION
