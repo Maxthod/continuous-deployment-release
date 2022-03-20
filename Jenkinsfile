@@ -23,6 +23,7 @@ node {
     if ( true || parameters.isDryRun() ) {
         echo "Dry run detected! Aborting pipeline."
         echo parameters.toString()
+        echo parameters.isDryRun()
     } else {
         checkout scm
         env.BASE_DIR = env.WORKSPACE
