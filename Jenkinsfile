@@ -17,7 +17,7 @@ dockerSlave {
         ])
     ])
 
-    Parameters parameters = new Parameters(params)
+    Parameters parameters = new Parameters(params.GIT_REPOSITORY, parameters.FLOW_TYPE, parameters.VERSION, parameters.DRY_RUN)
     if ( !parameters.isDryRun() ) {
         echo "Dry run detected! Aborting pipeline."
     } else {
