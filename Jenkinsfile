@@ -22,7 +22,12 @@ dockerSlave {
         echo "Dry run detected! Aborting pipeline."
     } else {
         checkout scm
-        env.BASE_DIR = env.WORKSPACE
+
+        docker.image('node:16').withRun() { c ->
+            sh "npm -v"
+        }
+
+        return
 
         String[] repo_parts = parameters.git_repository.split('/')
         String org = repo_parts[0]

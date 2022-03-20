@@ -1,17 +1,17 @@
-import com.duvalhub.release.performgitactions.PerformGitActions
 import com.duvalhub.initializeworkdir.SharedLibrary
+import com.duvalhub.release.performgitactions.PerformGitActions
 
 def call(PerformGitActions performGitActions) {
     echo "Executing 'performGitActions.groovy' with PerformGitActions: '${performGitActions.toString()}'"
-    dir( performGitActions.app_workdir ) {
+    dir(performGitActions.app_workdir) {
         withSshKey("github.com", "SERVICE_ACCOUNT_SSH", "git") {
             withCredentials([
-                usernamePassword(credentialsId: 'SERVICE_ACCOUNT_GITHUB_TOKEN', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
-                usernamePassword(credentialsId: performGitActions.getCredentialId(), usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')
+                    usernamePassword(credentialsId: 'SERVICE_ACCOUNT_GITHUB_TOKEN', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
+                    usernamePassword(credentialsId: performGitActions.getCredentialId(), usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')
             ]) {
                 env.PULL_REQUEST_TITLE = "Automatic Pull Request from CI."
                 String flow_type = performGitActions.getFlowType()
-                switch(flow_type) {
+                switch (flow_type) {
                     case "release":
                         env.GIT_URI = performGitActions.getGitUri()
                         env.VERSION = performGitActions.getVersion()
@@ -33,8 +33,11 @@ def call(PerformGitActions performGitActions) {
                 }
 
                 String git_action_script = "${env.WORKSPACE}/scripts/gitaction/${flow_type}.sh"
-                executeScript(git_action_script)        
-
+                withEnv([
+                        "PULL_REQUEST_TITLE=Automatic Pull Request from CI."
+                ]) {
+                    executeScript(git_action_script)
+                }
             }
         }
     }
