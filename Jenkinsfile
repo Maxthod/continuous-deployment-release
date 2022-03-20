@@ -24,7 +24,7 @@ dockerSlave {
         checkout scm
 
         docker.image('node:16-alpine')
-        .withDockerServer(uri: "tcp://build.docker.duvalhub.com:2376", credentialsId: "DOCKER_BUILD_BUNDLE")
+        .withDockerServer("tcp://build.docker.duvalhub.com:2376","DOCKER_BUILD_BUNDLE")
         .inside() { c ->
             sh "npm -v"
         }
