@@ -41,16 +41,16 @@ dockerSlave {
         withDockerServer([uri: "tcp://build.docker.duvalhub.com:2376", credentialsId: "DOCKER_BUILD_BUNDLE"]) {
 //         docker.withServer("tcp://build.docker.duvalhub.com:2376", "DOCKER_BUILD_BUNDLE") {
             echo "we are here"
-            docker.image('node:16-alpine')
+            docker.image('ubunut')
 //                 .inside('--entrypoint "sleep 100000"') { c ->
-                .inside('--entrypoint=') { c ->
-//                 .inside() { c ->
+//                 .inside('--entrypoint=') { c ->
+                .inside() { c ->
 //                     echo c
 //                     sh "whoami"
 //                     sh "env"
 //                     sh "ls -l /usr/local/bin/npm"
 //                     sh "/usr/local/bin/npm -v"
-                    sh "npm -v"
+                    sh "whoami"
                 }
         }
 
