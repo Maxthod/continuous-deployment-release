@@ -7,7 +7,7 @@ class Parameters {
     String version
     Boolean dry_run
 
-    Parameters(params) {
+    Parameters(Map params) {
         this.git_repository = params.GIT_REPOSITORY
         this.flow_type = params.FLOW_TYPE
         this.version = params.VERSION
