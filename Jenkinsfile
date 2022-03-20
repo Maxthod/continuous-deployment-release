@@ -22,15 +22,15 @@ dockerSlave {
         echo "Dry run detected! Aborting pipeline."
     } else {
         checkout scm
-      docker.withDockerServer("tcp://build.docker.duvalhub.com:2376", "DOCKER_BUILD_BUNDLE") {
-            echo "we are here1"
-                docker.image('node:16-alpine')
-                .inside() { c ->
-                    sh "npm -v"
-                }
-        }
+//       docker.withDockerServer("tcp://build.docker.duvalhub.com:2376", "DOCKER_BUILD_BUNDLE") {
+//             echo "we are here1"
+//                 docker.image('node:16-alpine')
+//                 .inside() { c ->
+//                     sh "npm -v"
+//                 }
+//         }
 
-        docker.withDockerServer([uri: "tcp://build.docker.duvalhub.com:2376", credentialsId: "DOCKER_BUILD_BUNDLE"]) {
+        withDockerServer([uri: "tcp://build.docker.duvalhub.com:2376", credentialsId: "DOCKER_BUILD_BUNDLE"]) {
             echo "we are here"
                 docker.image('node:16-alpine')
                 .inside() { c ->
