@@ -6,7 +6,7 @@ def call(PerformGitActions performGitActions) {
     dir( performGitActions.app_workdir ) {
         withSshKey("github.com", "SERVICE_ACCOUNT_SSH", "git") {
             withCredentials([
-                usernamePassword(credentialsId: 'GITHUB_SERVICE_ACCOUNT_CREDENTIALS', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
+                usernamePassword(credentialsId: 'SERVICE_ACCOUNT_GITHUB_TOKEN', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
                 usernamePassword(credentialsId: performGitActions.getCredentialId(), usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')
             ]) {
                 env.PULL_REQUEST_TITLE = "Automatic Pull Request from CI."
