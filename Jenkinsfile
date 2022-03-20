@@ -34,7 +34,8 @@ dockerSlave {
 //         docker.withServer("tcp://build.docker.duvalhub.com:2376", "DOCKER_BUILD_BUNDLE") {
             echo "we are here"
             docker.image('node:16-alpine')
-                .inside('--entrypoint "sleep 100000"') { c ->
+//                 .inside('--entrypoint "sleep 100000"') { c ->
+                .inside() { c ->
 //                 .inside() { c ->
 //                     echo c
 //                     sh "whoami"
