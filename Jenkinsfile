@@ -7,7 +7,8 @@ import com.duvalhub.release.performgitactions.PerformGitActions
 import com.duvalhub.initializeworkdir.InitializeWorkdirIn
 import com.duvalhub.appconfig.AppConfig
 
-dockerSlave {
+// dockerSlave {
+node {
     properties([
         parameters([
             string(defaultValue: 'duvalhub/continuous-deployment-test-app', name: 'GIT_REPOSITORY'),
@@ -21,7 +22,7 @@ dockerSlave {
     Parameters parameters = new Parameters(params)
     if ( true || parameters.isDryRun() ) {
         echo "Dry run detected! Aborting pipeline."
-        System.out.println(parameters.toString())
+        echo parameters.toString()
     } else {
         checkout scm
         env.BASE_DIR = env.WORKSPACE
