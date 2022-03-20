@@ -19,8 +19,9 @@ dockerSlave {
 
 //     Parameters parameters = new Parameters(params.GIT_REPOSITORY, params.FLOW_TYPE, params.VERSION, params.DRY_RUN)
     Parameters parameters = new Parameters(params)
-    if ( parameters.isDryRun() ) {
+    if ( true || parameters.isDryRun() ) {
         echo "Dry run detected! Aborting pipeline."
+        System.out.println(parameters.toString())
     } else {
         checkout scm
         env.BASE_DIR = env.WORKSPACE
@@ -29,9 +30,8 @@ dockerSlave {
         String org = repo_parts[0]
         String repo = repo_parts[1]
         GitRepo appGitRepo = new GitRepo(org, repo, "main")
-
-        AppConfig conf = initializeWorkdir.stage(new InitializeWorkdirIn(appGitRepo))
-
+        InitializeWorkdirIn initWorkDirIn = new InitializeWorkdirIn(appGitRepo)
+        AppConfig conf = initializeWorkdir.stage(initWorkDirIn)
         performGitActions(new PerformGitActions(parameters, initWorkDirIn, appConfig))
     }
 
