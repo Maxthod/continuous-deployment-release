@@ -42,6 +42,7 @@ dockerSlave {
         withDockerServer([uri: "tcp://build.docker.duvalhub.com:2376", credentialsId: "DOCKER_BUILD_BUNDLE"]) {
 //         docker.withServer("tcp://build.docker.duvalhub.com:2376", "DOCKER_BUILD_BUNDLE") {
             echo "we are here"
+            sh "env | grep -i docker"
             docker.image('duvalhub/node:16.rc1')
 //                 .inside('--entrypoint "sleep 100000"') { c ->
 //                 .inside('--entrypoint=') { c ->
