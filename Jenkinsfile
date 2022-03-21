@@ -17,6 +17,10 @@ import com.duvalhub.appconfig.AppConfig
     ])
 
 
+echo "allo"
+
+echo params.GIT_REPOSITORY
+
 dockerSlave {
 // node {
     properties([
