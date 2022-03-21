@@ -7,8 +7,8 @@ import com.duvalhub.release.performgitactions.PerformGitActions
 import com.duvalhub.initializeworkdir.InitializeWorkdirIn
 import com.duvalhub.appconfig.AppConfig
 
-// dockerSlave {
-node {
+dockerSlave {
+// node {
     properties([
         parameters([
             string(name: 'GIT_REPOSITORY'),
@@ -17,6 +17,11 @@ node {
             string(defaultValue: 'false', name: 'DRY_RUN')
         ])
     ])
+
+    withDockerServer([uri: "tcp://build.docker.duvalhub.com:2376", credentialsId: "DOCKER_BUILD_BUNDLE"]) {
+        docker.image('duvalhub/node:16.rc1')
+        .inside() { c ->
+    }
 
     Parameters parameters = new Parameters(params)
     if ( parameters.isDryRun() ) {
