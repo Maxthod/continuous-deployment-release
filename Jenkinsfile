@@ -7,6 +7,16 @@ import com.duvalhub.release.performgitactions.PerformGitActions
 import com.duvalhub.initializeworkdir.InitializeWorkdirIn
 import com.duvalhub.appconfig.AppConfig
 
+    properties([
+        parameters([
+            string(name: 'GIT_REPOSITORY'),
+            choice(choices: ['none', 'release', 'production'], name: 'FLOW_TYPE'),
+            choice(choices: ['none','patch', 'minor', 'major'], name: 'VERSION'),
+            string(defaultValue: 'false', name: 'DRY_RUN')
+        ])
+    ])
+
+
 dockerSlave {
 // node {
     properties([
