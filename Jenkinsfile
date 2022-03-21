@@ -37,7 +37,6 @@ node {
         id -u
         echo gid
         id -g
-        ls -l /home/jenkins/workspace
         pwd
         '''
         withDockerServer([uri: "tcp://build.docker.duvalhub.com:2376", credentialsId: "DOCKER_BUILD_BUNDLE"]) {
