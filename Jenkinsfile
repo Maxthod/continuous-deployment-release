@@ -31,6 +31,7 @@ dockerSlave {
 //         }
 
         sh '''
+        whoami
         echo uid
         id -u
         echo gid
