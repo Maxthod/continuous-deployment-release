@@ -1,4 +1,4 @@
-@Library(['release-library@fix/pipeline-is-a-bit-outdated', 'shared-library@master']) _
+@Library(['release-library@fix/pipeline-is-a-bit-outdated', 'shared-library@fix/launching-container-during-build']) _
 
 import com.duvalhub.release.parameters.Parameters
 import com.duvalhub.git.GitCloneRequest
@@ -21,8 +21,8 @@ import com.duvalhub.appconfig.AppConfig
 //
 // echo params.GIT_REPOSITORY
 
-// dockerSlave {
-node {
+dockerSlave {
+// node {
     properties([
         parameters([
             string(name: 'GIT_REPOSITORY'),
@@ -32,13 +32,13 @@ node {
         ])
     ])
 
-    withDockerServer([uri: "tcp://build.docker.duvalhub.com:2376", credentialsId: "DOCKER_BUILD_BUNDLE"]) {
-//         docker.image('duvalhub/node:16.rc1')
-        docker.image('duvalhub/jenkins-slave:1.0.5.rc1')
-        .inside() { c ->
-            sh "whoami"
-        }
-    }
+//     withDockerServer([uri: "tcp://build.docker.duvalhub.com:2376", credentialsId: "DOCKER_BUILD_BUNDLE"]) {
+// //         docker.image('duvalhub/node:16.rc1')
+//         docker.image('duvalhub/jenkins-slave:1.0.5.rc1')
+//         .inside() { c ->
+//             sh "whoami"
+//         }
+//     }
     return
     Parameters parameters = new Parameters(params)
     if ( parameters.isDryRun() ) {
