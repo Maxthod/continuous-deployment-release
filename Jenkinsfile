@@ -36,7 +36,7 @@ node {
         docker.image('duvalhub/node:16.rc1')
 //         docker.image('duvalhub/jenkins-slave:1.0.5.rc1')
         .inside() { c ->
-            sh "whoami"
+//             sh "whoami"
             sh "npm -v"
         }
 //     }
