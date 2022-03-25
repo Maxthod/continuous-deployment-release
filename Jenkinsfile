@@ -39,7 +39,7 @@ node {
             sh "whoami"
         }
 //     }
-
+    return
     Parameters parameters = new Parameters(params)
     if ( parameters.isDryRun() ) {
         echo "Dry run detected! Aborting pipeline."
