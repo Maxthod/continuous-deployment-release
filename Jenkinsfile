@@ -39,8 +39,10 @@ node {
         .inside() { c ->
             sh "npm -v"
             sh "ls -l"
+            sh "mv allo toto"
         }
 //     }
+    sh "ls -l"
     return
     Parameters parameters = new Parameters(params)
     if ( parameters.isDryRun() ) {
