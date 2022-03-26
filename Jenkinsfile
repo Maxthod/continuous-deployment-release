@@ -32,12 +32,13 @@ node {
         ])
     ])
 
+    sh "touch allo"
 //     withDockerServer([uri: "tcp://build.docker.duvalhub.com:2376", credentialsId: "DOCKER_BUILD_BUNDLE"]) {
         docker.image('duvalhub/node:16.rc1')
 //         docker.image('duvalhub/jenkins-slave:1.0.5.rc1')
         .inside() { c ->
-            sh "whoami"
             sh "npm -v"
+            sh "ls -l"
         }
 //     }
     return
