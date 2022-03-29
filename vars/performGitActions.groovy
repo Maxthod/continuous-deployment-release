@@ -27,9 +27,9 @@ def call(PerformGitActions performGitActions) {
                         }
 
                         docker.image(image)
-                                .inside() { c ->
-                                    new_version = executeScript(version_script, true)
-                                }
+                            .inside() { c ->
+                                new_version = executeScript(version_script, true)
+                            }
                         env.NEW_VERSION = new_version
                         break
                     case "production":
