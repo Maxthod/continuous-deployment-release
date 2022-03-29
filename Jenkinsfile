@@ -51,6 +51,15 @@ node {
         echo "Dry run detected! Aborting pipeline."
     } else {
         checkout scm
+        String[] repo_parts = parameters.git_repository.split('/')
+        String org = repo_parts[0]
+        String repo = repo_parts[1]
+        GitRepo appGitRepo = new GitRepo(org, repo, "main")
+        InitializeWorkdirIn initWorkDirIn = new InitializeWorkdirIn(appGitRepo)
+        AppConfig appConfig = initializeWorkdir.stage(initWorkDirIn)
+
+
+
 //       docker.withDockerServer("tcp://build.docker.duvalhub.com:2376", "DOCKER_BUILD_BUNDLE") {
 //             echo "we are here1"
 //                 docker.image('node:16-alpine')
@@ -92,13 +101,6 @@ node {
 
         return
 
-        String[] repo_parts = parameters.git_repository.split('/')
-        String org = repo_parts[0]
-        String repo = repo_parts[1]
-        GitRepo appGitRepo = new GitRepo(org, repo, "main")
-        InitializeWorkdirIn initWorkDirIn = new InitializeWorkdirIn(appGitRepo)
-        AppConfig appConfig = initializeWorkdir.stage(initWorkDirIn)
-        performGitActions(new PerformGitActions(parameters, initWorkDirIn, appConfig))
     }
 
 }

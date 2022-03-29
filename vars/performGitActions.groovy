@@ -1,6 +1,7 @@
 import com.duvalhub.initializeworkdir.SharedLibrary
 import com.duvalhub.release.performgitactions.PerformGitActions
 
+
 def call(PerformGitActions performGitActions) {
     echo "Executing 'performGitActions.groovy' with PerformGitActions: '${performGitActions.toString()}'"
     dir(performGitActions.app_workdir) {
@@ -11,12 +12,24 @@ def call(PerformGitActions performGitActions) {
             ]) {
                 env.PULL_REQUEST_TITLE = "Automatic Pull Request from CI."
                 String flow_type = performGitActions.getFlowType()
+                def versionControlImages = [npm: "node:16", maven: "maven:3"]
                 switch (flow_type) {
                     case "release":
                         env.GIT_URI = performGitActions.getGitUri()
                         env.VERSION = performGitActions.getVersion()
-                        String version_script = "${env.WORKSPACE}/scripts/version-controls/${performGitActions.getVersionControl()}.sh"
-                        String new_version = executeScript(version_script, true)
+                        String versionControl = performGitActions.getVersionControl()
+                        String version_script = "${env.WORKSPACE}/scripts/version-controls/${versionControl}.sh"
+                        String new_version = null
+                        String image = versionControlImages[versionControl]
+                        if(!image) {
+                            echo "We don't have a version for ${versionControl}"
+                            sh "exit 1"
+                        }
+
+                        docker.image(image)
+                                .inside() { c ->
+                                    new_version = executeScript(version_script, true)
+                                }
                         env.NEW_VERSION = new_version
                         break
                     case "production":
