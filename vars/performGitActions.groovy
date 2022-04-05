@@ -28,9 +28,7 @@ def call(PerformGitActions performGitActions) {
 
                         docker.image(image)
                             .inside() { c ->
-//                                sh "hostname"
-//                                sh "whoami"
-//                                sh "sleep 55555"
+                                sh "sleep 55555"
                                 new_version = executeScript(version_script, true)
                             }
                         env.NEW_VERSION = new_version
