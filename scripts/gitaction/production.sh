@@ -26,6 +26,8 @@ test_param "RELEASE_BRANCH"
 test_param "REGISTRY_API"
 test_param "NAMESPACE"
 test_param "REPOSITORY"
+test_param "MAIN_BRANCH"
+test_param "PRODUCTION_BRANCH"
 
 if [ "$missing_params" = true ]; then
     echo "Missing parameters detected. Aborting..."
@@ -39,11 +41,11 @@ else
         echo "Releasing from release branch '$RELEASE_BRANCH'"
     
         # Prepare release branch
-        git checkout master
-        git checkout develop
+        git checkout "$PRODUCTION_BRANCH"
+        git checkout "$MAIN_BRANCH"
         git checkout "$RELEASE_BRANCH"
 
-        fork_commit_with_develop=$(git merge-base "$RELEASE_BRANCH" develop)
+        fork_commit_with_develop=$(git merge-base "$RELEASE_BRANCH" "$MAIN_BRANCH")
         last_merge_commit=$(git log --pretty=format:"%h" --merges -n 1)
         current_release_feature_commits=$(git log --pretty=format:"%s" "$last_merge_commit..$fork_commit_with_develop")
         echo "fork_commit_with_develop: '$fork_commit_with_develop', last_merge_commit: '$last_merge_commit', current_release_feature_commits: '$current_release_feature_commits'"
@@ -52,27 +54,27 @@ else
         git commit -am "$RELEASE_BRANCH :
         $current_release_feature_commits
         "
-        # Merge release branch into master
-        git checkout master
+        # Merge release branch into "$PRODUCTION_BRANCH"
+        git checkout "$PRODUCTION_BRANCH"
         git merge --no-edit "$RELEASE_BRANCH"
         git tag "$version"
-        git push origin --tags master
+        git push origin --tags "$PRODUCTION_BRANCH"
         git push origin --delete "$RELEASE_BRANCH"
 
-        # Merge back into develop if no conflict
-        git checkout develop
-        if try_merge "master"; then
+        # Merge back into "$MAIN_BRANCH if no conflict
+        git checkout "$MAIN_BRANCH"
+        if try_merge "$PRODUCTION_BRANCH"; then
             echo "########## Merging successful"
             git commit -am "End of Release: '$RELEASE_BRANCH'"
-            git push origin develop
+            git push origin "$MAIN_BRANCH"
         else
             echo "########### Merge conflict"
             git merge --abort
             conflict_branch="conflicts/$RELEASE_BRANCH"
-            git checkout master
+            git checkout "$PRODUCTION_BRANCH"
             git checkout -b "$conflict_branch"
             git push origin "$conflict_branch"
-            create_pull_request "$conflict_branch" "develop"
+            create_pull_request "$conflict_branch" ""$MAIN_BRANCH
         fi
     fi
 fi
