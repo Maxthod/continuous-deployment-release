@@ -1,8 +1,16 @@
 #!/bin/bash
 set -e
+
+docker_token() {
+  curl --silent -f -lSL  -H "Content-Type: application/json" -X POST \
+  -d '{"username": "'${$DOCKERHUB_USERNAME}'", "password": "'${DOCKERHUB_PASSWORD}'"}' \
+  https://hub.docker.com/v2/users/login/ | jq -r .token
+}
 docker_tag_exists() {
-    echo curl --silent -f -lSL "$1"/repositories/$2/tags/$3
-    curl --silent -u "$DOCKERHUB_USERNAME:$DOCKERHUB_PASSWORD" -f -lSL "$1"/repositories/$2/tags/$3 > /dev/null
+    TOKEN=$(docker_token)
+    [ -z "$TOKEN" ] && echo "Failed to retrieve token" && return 1
+    curl --silent -f -lSL -H "Authorization: JWT ${TOKEN}" \
+    "https://hub.docker.com/v2/repositories/$2/tags/$3"
 }
 
 try_merge() {
