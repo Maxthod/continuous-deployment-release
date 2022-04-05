@@ -12,7 +12,7 @@ def call(PerformGitActions performGitActions) {
             ]) {
                 env.PULL_REQUEST_TITLE = "Automatic Pull Request from CI."
                 String flow_type = performGitActions.getFlowType()
-                def versionControlImages = [npm: "node:16", maven: "maven:3"]
+                def versionControlImages = [npm: "node:16.14.2-alpine", maven: "maven:3"]
                 switch (flow_type) {
                     case "release":
                         env.GIT_URI = performGitActions.getGitUri()
