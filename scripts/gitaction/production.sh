@@ -3,7 +3,7 @@ set -e
 
 docker_token() {
   curl --silent -f -lSL  -H "Content-Type: application/json" -X POST \
-    -d '{"username": "'${$DOCKERHUB_USERNAME}'", "password": "'${DOCKERHUB_PASSWORD}'"}' \
+    -d '{"username": "'${DOCKERHUB_USERNAME}'", "password": "'${DOCKERHUB_PASSWORD}'"}' \
     https://hub.docker.com/v2/users/login/ | jq -r .token
 }
 docker_tag_exists() {
