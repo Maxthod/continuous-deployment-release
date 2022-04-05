@@ -51,10 +51,7 @@ def call(PerformGitActions performGitActions) {
                 withEnv([
                         "PULL_REQUEST_TITLE=Automatic Pull Request from CI."
                 ]) {
-                    docker.image("curlimages/curl:7.82.0")
-                            .inside() { c ->
-                                executeScript(git_action_script)
-                            }
+                    executeScript(git_action_script)
                 }
             }
         }
