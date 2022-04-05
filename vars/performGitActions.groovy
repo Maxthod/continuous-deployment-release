@@ -28,7 +28,7 @@ def call(PerformGitActions performGitActions) {
 
                         docker.image(image)
                             .inside() { c ->
-                                sh "cat"
+                                sh "sleep 50000"
                                 new_version = executeScript(version_script, true)
                             }
                         env.NEW_VERSION = new_version
