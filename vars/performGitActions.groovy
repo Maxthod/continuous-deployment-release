@@ -1,28 +1,43 @@
-import com.duvalhub.release.performgitactions.PerformGitActions
 import com.duvalhub.initializeworkdir.SharedLibrary
+import com.duvalhub.release.performgitactions.PerformGitActions
+
 
 def call(PerformGitActions performGitActions) {
     echo "Executing 'performGitActions.groovy' with PerformGitActions: '${performGitActions.toString()}'"
-    dir( performGitActions.app_workdir ) {
-        withSshKey() {
+    dir(performGitActions.app_workdir) {
+        withSshKey("github.com", "SERVICE_ACCOUNT_SSH", "git") {
             withCredentials([
-                usernamePassword(credentialsId: 'GITHUB_SERVICE_ACCOUNT_CREDENTIALS', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
-                usernamePassword(credentialsId: performGitActions.getCredentialId(), usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')
+                    usernamePassword(credentialsId: 'SERVICE_ACCOUNT_GITHUB_TOKEN', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
+                    usernamePassword(credentialsId: performGitActions.getCredentialId(), usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')
             ]) {
                 env.PULL_REQUEST_TITLE = "Automatic Pull Request from CI."
                 String flow_type = performGitActions.getFlowType()
-                switch(flow_type) {
+                def versionControlImages = [npm: "node:16", maven: "maven:3"]
+                switch (flow_type) {
                     case "release":
                         env.GIT_URI = performGitActions.getGitUri()
                         env.VERSION = performGitActions.getVersion()
-                        String version_script = "${env.WORKSPACE}/scripts/version-controls/${performGitActions.getVersionControl()}.sh"
-                        String new_version = executeScript(version_script, true)
+                        String versionControl = performGitActions.getVersionControl()
+                        String version_script = "${env.WORKSPACE}/scripts/version-controls/${versionControl}.sh"
+                        String new_version = null
+                        String image = versionControlImages[versionControl]
+                        if (!image) {
+                            echo "We don't have a version for ${versionControl}"
+                            sh "exit 1"
+                        }
+
+                        docker.image(image)
+                                .inside() { c ->
+                                    new_version = executeScript(version_script, true)
+                                }
                         env.NEW_VERSION = new_version
                         break
                     case "production":
                         env.REGISTRY_API = performGitActions.getRegistryApi()
                         env.NAMESPACE = performGitActions.getNamespace()
                         env.REPOSITORY = performGitActions.getRepository()
+                        env.MAIN_BRANCH = "main"
+                        env.PRODUCTION_BRANCH = "production"
                         String release_branch_script = "${SharedLibrary.getWorkdir(env)}/libs/scripts/getReleaseBranch/getReleaseBranch.sh"
                         String release_branch = executeScript(release_branch_script, true)
                         env.RELEASE_BRANCH = release_branch
@@ -33,8 +48,11 @@ def call(PerformGitActions performGitActions) {
                 }
 
                 String git_action_script = "${env.WORKSPACE}/scripts/gitaction/${flow_type}.sh"
-                executeScript(git_action_script)        
-
+                withEnv([
+                        "PULL_REQUEST_TITLE=Automatic Pull Request from CI."
+                ]) {
+                    executeScript(git_action_script)
+                }
             }
         }
     }
