@@ -1,4 +1,4 @@
-@Library(['release-library@fix/pipeline-is-a-bit-outdated', 'shared-library@fix/launching-container-during-build']) _
+@Library(['release-library@master', 'shared-library@master']) _
 
 import com.duvalhub.release.parameters.Parameters
 import com.duvalhub.git.GitCloneRequest

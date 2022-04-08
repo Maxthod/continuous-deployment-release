@@ -9,8 +9,6 @@ docker_token() {
 docker_tag_exists() {
     TOKEN=$(docker_token)
     [ -z "$TOKEN" ] && echo "Failed to retrieve token" && return 1
-#    curl --silent -u "$DOCKERHUB_USERNAME:$DOCKERHUB_PASSWORD" -f -lSL \
-#    "$1"/repositories/$2/tags/$3 > /dev/null
     curl --silent -f -lSL -H "Authorization: JWT ${TOKEN}" \
       "https://hub.docker.com/v2/repositories/$2/tags/$3" >/dev/null
 }
