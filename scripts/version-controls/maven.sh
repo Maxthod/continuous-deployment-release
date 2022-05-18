@@ -17,7 +17,8 @@ echoerr "Bumped version '$VERSION' using maven"
 
 if [ "$VERSION" = "patch" ]; then
   mvn build-helper:parse-version versions:set \
-    '-DnewVersion=${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.nextIncrementalVersion}' 1>&2
+    '-DnewVersion=${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.nextIncrementalVersion}' \
+    versions:commit 1>&2
 elif [ "$VERSION" = "minor" ]; then
   mvn build-helper:parse-version versions:set \
       '-DnewVersion=${parsedVersion.majorVersion}.${parsedVersion.nextMinorVersion}.0' \
