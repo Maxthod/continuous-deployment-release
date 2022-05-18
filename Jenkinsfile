@@ -1,4 +1,4 @@
-@Library(['release-library@improvement/maven-version-control', 'shared-library@master']) _
+@Library(['release-library@master', 'shared-library@master']) _
 
 import com.duvalhub.release.parameters.Parameters
 import com.duvalhub.git.GitCloneRequest

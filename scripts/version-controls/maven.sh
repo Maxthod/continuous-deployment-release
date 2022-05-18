@@ -13,7 +13,7 @@ if [[ ! "$VERSION" =~ ^(patch|minor|major|([0-9]+.[0-9]+.[0-9]+))$ ]]; then
   exit 1
 fi
 
-echoerr "Bumped version '$VERSION using maven"
+echoerr "Bumped version '$VERSION' using maven"
 
 if [ "$VERSION" = "patch" ]; then
   mvn build-helper:parse-version versions:set \
