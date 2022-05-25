@@ -3,9 +3,9 @@ echoerr() {
   echo "$@" >&2
 }
 
-mvn() {
-  command mvn -Dmaven.repo.local=/tmp/maven-repository "$@"
-}
+#mvn() {
+#  command mvn -Dmaven.repo.local=/tmp/maven-repository "$@"
+#}
 
 if [ -z "$VERSION" ]; then
     echoerr "Missing 'VERSION' environment variable. Fatal error."
