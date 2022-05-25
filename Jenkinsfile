@@ -7,7 +7,7 @@ import com.duvalhub.release.performgitactions.PerformGitActions
 import com.duvalhub.initializeworkdir.InitializeWorkdirIn
 import com.duvalhub.appconfig.AppConfig
 
-node {
+dockerSlave() {
     properties([
         parameters([
             string(name: 'GIT_REPOSITORY'),
