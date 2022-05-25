@@ -4,7 +4,7 @@ echoerr() {
 }
 
 mvn() {
-  command mvn -Dmaven.repo.local=/tmp/maven-repository
+  command mvn -Dmaven.repo.local=/tmp/maven-repository "$@"
 }
 
 if [ -z "$VERSION" ]; then
