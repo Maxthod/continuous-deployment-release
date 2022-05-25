@@ -25,7 +25,6 @@ def call(PerformGitActions performGitActions) {
                             echo "We don't have a version for ${versionControl}"
                             sh "exit 1"
                         }
-
                         docker.image(image)
                                 .inside() { c ->
                                     new_version = executeScript(version_script, true)
