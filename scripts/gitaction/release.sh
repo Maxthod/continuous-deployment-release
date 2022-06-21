@@ -10,12 +10,6 @@ elif (( $release_branch > 0 )); then
     exit 1
 else
     NEW_BRANCH="release/$NEW_VERSION"
-
-
-    git remote -v
-    cat ~/.ssh/config
-
-
     git checkout -b $NEW_BRANCH
     git add .
     git commit -am "Bumped to '$NEW_VERSION'"
