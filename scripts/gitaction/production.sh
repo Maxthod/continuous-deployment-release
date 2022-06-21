@@ -48,6 +48,12 @@ else
         exit 1
     else
         echo "Releasing from release branch '$RELEASE_BRANCH'"
+
+
+        git remote -v
+        cat ~/.ssh/config
+
+
     
         # Prepare release branch
         git checkout "$PRODUCTION_BRANCH"
