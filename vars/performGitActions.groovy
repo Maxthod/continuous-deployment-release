@@ -10,12 +10,12 @@ def call(PerformGitActions performGitActions) {
                     usernamePassword(credentialsId: 'SERVICE_ACCOUNT_GITHUB_TOKEN', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
                     usernamePassword(credentialsId: performGitActions.getCredentialId(), usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')
             ]) {
+                sh "git remote set-url origin git@${env.SSH_HOST}:${performGitActions.getGitUri()}.git" // Because withSshKey create a random UUID SSH_HOST entry in ssh config file
                 env.PULL_REQUEST_TITLE = "Automatic Pull Request from CI."
                 String flow_type = performGitActions.getFlowType()
                 def versionControlImages = [npm: "node:16", maven: "maven:3"]
                 switch (flow_type) {
                     case "release":
-                        sh "git remote set-url origin git@${env.SSH_HOST}:${performGitActions.getGitUri()}.git" // Because withSshKey create a random UUID SSH_HOST entry in ssh config file
                         env.GIT_URI = performGitActions.getGitUri()
                         env.VERSION = performGitActions.getVersion()
                         String versionControl = performGitActions.getVersionControl()
