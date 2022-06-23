@@ -1,4 +1,4 @@
-@Library(['release-library@fix/withSshKey-random-entry-in-config-file', 'shared-library@fix/withSshKey-random-entry-in-config-file']) _
+@Library(['release-library@fix/withSshKey-random-entry-in-config-file', 'shared-library@master']) _
 
 import com.duvalhub.release.parameters.Parameters
 import com.duvalhub.git.GitCloneRequest
