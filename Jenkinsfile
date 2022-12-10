@@ -1,6 +1,6 @@
 @Library([
-    'release-library@fix/withSshKey-random-entry-in-config-file',
-    'shared-library@improvement/cicd-type-1-branch'
+    'release-library@master',
+    'shared-library@master'
 ]) _
 
 import com.duvalhub.release.parameters.Parameters
