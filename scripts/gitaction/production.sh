@@ -48,6 +48,7 @@ else
         exit 1
     else
         echo "Releasing from release branch '$RELEASE_BRANCH'"
+
         # Prepare release branch
         git checkout "$PRODUCTION_BRANCH"
         git checkout "$MAIN_BRANCH"
