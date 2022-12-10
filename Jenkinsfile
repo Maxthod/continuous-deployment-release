@@ -1,4 +1,7 @@
-@Library(['release-library@master', 'shared-library@master']) _
+@Library([
+    'release-library@master',
+    'shared-library@master'
+]) _
 
 import com.duvalhub.release.parameters.Parameters
 import com.duvalhub.git.GitCloneRequest
